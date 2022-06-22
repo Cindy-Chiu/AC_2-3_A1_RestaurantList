@@ -2,6 +2,11 @@ header {
   overflow: hidden;
 }
 
+
+.mo{
+  display:flex;
+  flex-wrap: wrap;
+}
 .navbar .navbar-brand {
   color: #4592af;
 }
@@ -98,4 +103,8 @@ header {
     height: auto;
   }
 
+}
+
+.editPage, .addPage{
+ margin:10px 30% 10px 30%;
 }
