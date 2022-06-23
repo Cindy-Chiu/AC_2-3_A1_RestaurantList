@@ -4,9 +4,10 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const port = 3000
 const exphbs = require('express-handlebars')
-const restaurantList = require('./models/restaurant.json')
 const Restaurant = require('./models/restaurant')
 const app = express()
+
+
 
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -27,12 +28,6 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-
-let nowTime = new Date()
-let newId = Number(nowTime.getFullYear().toString() + nowTime.getMonth().toString() + nowTime.getDate().toString() + nowTime.getHours().toString() + nowTime.getMinutes().toString()) //取當前時間資料作為id基值，可避免每次啟動伺服器並新增餐廳時給予重複的id
-
-
-
 // routes setting
 app.get('/', (req, res) => {
 
@@ -49,6 +44,8 @@ app.get('/restaurants/new', (req, res) => {
 })
 
 app.post('/restaurants', (req, res) => {
+  let nowTime = new Date()
+  let newId = Number(nowTime.getFullYear().toString() + nowTime.getMonth().toString() + nowTime.getDate().toString() + nowTime.getHours().toString() + nowTime.getMinutes().toString()) //取當前時間資料作為id基值，可避免每次啟動伺服器並新增餐廳時給予重複的id
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
   const id = newId
   newId = newId + 1
@@ -88,15 +85,8 @@ app.get('/restaurants/:restaurant_id/edit', (req, res) => {
 
 app.post('/restaurants/:restaurant_id/edit', (req, res) => {
   const id = Number(req.params.restaurant_id)
-  const reqData = req.body
-  const name = reqData.name
-  const name_en = reqData.name_en
-  const category = reqData.category
-  const image = reqData.image
-  const location = reqData.location
-  const phone = reqData.phone
-  const google_map = reqData.google_map
-  const description = reqData.description
+  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+
   return Restaurant.findOne({ id: id })
     .then(restaurant => {
       console.log(id)
@@ -106,6 +96,7 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
       restaurant.image = image
       restaurant.location = location
       restaurant.phone = phone
+      restaurant.rating = rating
       restaurant.google_map = google_map
       restaurant.description = description
       return restaurant.save()
@@ -115,12 +106,14 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
 })
 
 app.post('/restaurants/:restaurant_id/delete', (req, res) => {
+
   const id = Number(req.params.restaurant_id)
   return Restaurant.findOne({ id: id })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
+
 
 
 // start and listen on the Express server
