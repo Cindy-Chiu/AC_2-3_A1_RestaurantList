@@ -14,11 +14,8 @@
 2. 指令 cd (存放資料夾)
 3. 指令npm install
 4. 指令npm i nodemon
-5. 指令 npm i express@4.17.1
-6. 指令npm i mongoose@5.9.7
-7. 指令npm i express-handlebars@4.0.2
-8. 指令 npm i body-parser
-9. 指令 npm run seed載入種子資料
-10. 指令npm run dev 並會看見終端機回傳
+5. 指令 set MONGODB_URI = 您的MongoDB位址
+6. 指令 npm run seed載入種子資料
+7. 指令npm run dev 並會看見終端機回傳
 "Express is listening on localhost:3000
 mongodb connected!"
