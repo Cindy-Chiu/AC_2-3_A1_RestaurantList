@@ -1,5 +1,5 @@
-# AC_2-3_A4_RestaurantList
-這是Alpha Camp 2-3後端專修的A4作業。
+# AC_2-3_A7_RestaurantList
+這是Alpha Camp 2-3後端專修的A7作業。
 
 本作業功能清單如下：
   1. 載入種子資料後，首頁(index)可顯示來自restaurant.json中的所有餐廳資訊，包含餐廳名稱、種類、評分、圖片。
